@@ -20,6 +20,13 @@ export async function generateNewYearGreeting(config: GreetingConfig): Promise<G
     clearTimeout(timeoutId);
 
     if (!response.ok) {
+      if (response.status === 500) {
+        // 后端错误，返回兜底祝福
+        return {
+          text: "恭祝您马年大吉，龙马精神，阖家欢乐，万事胜意！",
+          idioms: ["马到成功", "龙马精神", "恭贺新禧", "大吉大利"]
+        };
+      }
       throw new Error(`API request failed: ${response.status} ${response.statusText}`);
     }
 
@@ -30,6 +37,7 @@ export async function generateNewYearGreeting(config: GreetingConfig): Promise<G
     };
   } catch (error) {
     console.error("API Error:", error);
+    // 任何错误都返回兜底祝福
     return {
       text: "恭祝您马年大吉，龙马精神，阖家欢乐，万事胜意！",
       idioms: ["马到成功", "龙马精神", "恭贺新禧", "大吉大利"]
