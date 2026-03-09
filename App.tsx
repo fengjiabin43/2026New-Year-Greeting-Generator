@@ -53,7 +53,7 @@ const App: React.FC = () => {
       <div className="bg-red-800 border-b-4 border-yellow-600 p-6 relative flex flex-col items-center justify-center overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
            <div className="grid grid-cols-6 gap-8 p-10">
-             {[...Array(12)].map((_, i) => <div key={i} className="text-4xl">福</div>)}
+             {[...Array(12)].map((_, i) => <div key={i} className="text-4xl">福</div>)} 
            </div>
         </div>
         
@@ -83,11 +83,7 @@ const App: React.FC = () => {
                 <button
                   key={r.id}
                   onClick={() => setConfig(prev => ({ ...prev, recipient: r.id as RecipientType }))}
-                  className={`p-4 rounded-2xl border-2 transition-all transform hover:scale-105 flex flex-col items-center gap-2 ${
-                    config.recipient === r.id 
-                      ? 'bg-yellow-600 border-yellow-400 text-red-900 shadow-xl' 
-                      : 'bg-red-950/60 border-yellow-900/30 text-yellow-600 hover:border-yellow-600'
-                  }`}
+                  className={`p-4 rounded-2xl border-2 transition-all transform hover:scale-105 flex flex-col items-center gap-2 ${config.recipient === r.id ? 'bg-yellow-600 border-yellow-400 text-red-900 shadow-xl' : 'bg-red-950/60 border-yellow-900/30 text-yellow-600 hover:border-yellow-600'}`}
                 >
                   <span className="text-3xl">{r.icon}</span>
                   <span className="font-bold text-sm whitespace-nowrap">{r.label}</span>
@@ -117,11 +113,7 @@ const App: React.FC = () => {
                 <button
                   key={s.id}
                   onClick={() => setConfig(prev => ({ ...prev, style: s.id as any }))}
-                  className={`px-8 py-3 rounded-full border-2 font-bold transition-all ${
-                    config.style === s.id 
-                      ? 'bg-yellow-600 border-yellow-400 text-red-900 shadow-lg' 
-                      : 'bg-red-950/60 border-yellow-900/30 text-yellow-600 hover:border-yellow-600'
-                  }`}
+                  className={`px-8 py-3 rounded-full border-2 font-bold transition-all ${config.style === s.id ? 'bg-yellow-600 border-yellow-400 text-red-900 shadow-lg' : 'bg-red-950/60 border-yellow-900/30 text-yellow-600 hover:border-yellow-600'}`}
                 >
                   {s.label}
                 </button>
@@ -166,7 +158,10 @@ const App: React.FC = () => {
                 <div className="shimmer absolute inset-0 opacity-0 group-hover:opacity-100"></div>
                 <div className="relative flex items-center gap-4">
                   {loading ? (
-                     <div className="w-6 h-6 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
+                    <>
+                      <div className="w-6 h-6 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
+                      <span className="text-yellow-500 text-2xl font-black">生成中...</span>
+                    </>
                   ) : (
                     <span className="text-yellow-500 text-2xl font-black">生成马年祝福</span>
                   )}

@@ -37,6 +37,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       3. 如果对象是领导、客户或正式称呼，要得体稳重；如果是朋友或亲近的人，可以活泼。
       4. 不要包含任何敏感词汇。
       5. 返回格式为JSON，包含 'text' (完整的祝福语全文) 和 'idioms' (使用的4个核心成语列表)。
+      6. 不要添加任何多余的解释或说明，直接返回JSON格式结果。
     `;
 
     const messages = [
@@ -54,7 +55,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         model: ZHIPU_MODEL,
         messages,
         stream: false,
-        temperature: 0.7
+        temperature: 0.7,
+        max_tokens: 512,
+        top_p: 0.9
       })
     });
 

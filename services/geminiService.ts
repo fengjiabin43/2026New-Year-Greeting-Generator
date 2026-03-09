@@ -5,13 +5,19 @@ const API_ENDPOINT = "/api/generate-greeting";
 
 export async function generateNewYearGreeting(config: GreetingConfig): Promise<GeneratedGreeting> {
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15秒超时
+
     const response = await fetch(API_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(config),
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       throw new Error(`API request failed: ${response.status} ${response.statusText}`);
